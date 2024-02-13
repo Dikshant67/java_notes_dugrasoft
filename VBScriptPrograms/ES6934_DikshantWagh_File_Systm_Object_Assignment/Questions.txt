@@ -1,0 +1,21 @@
+1. Create Folder at location C:\ with your name​
+
+​
+
+2. Create .txt file at location C:\Vrushali\Testing with name "MyFirstTextFile.txt“​
+
+​
+
+3. Write some text under the same file - "MyFirstTextFile.txt“​
+
+​
+
+4. Copy the text from the same file ("MyFirstTextFile.txt") and create an another text file with name "Result.txt" where you can paste the copied data​
+
+​
+
+5. Now move newly created "Result" file at location C:\Vrushali\Testing\Result​
+
+​
+
+6. Now delete the text file : "MyFirstTextFile.txt“ from the location.​

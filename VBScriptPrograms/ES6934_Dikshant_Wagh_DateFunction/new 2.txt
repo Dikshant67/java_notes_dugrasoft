@@ -1,0 +1,29 @@
+1. Find out the Type of error ​
+    Dim strName​
+    strName = "UFT"​
+    If isArray(strName)​
+         msgbox "It is  Array"​
+    Else​
+         msgbox "It is not Array"​
+    End If​
+ ​
+2.  Find out the Type of error ​
+    'Below is the code for addtion of 2 numbers ​
+    Dim intVar1,intVar2​
+    intVar1= 10​
+    intVar2= 5​
+    msgbox "Addtion of Two numbers "& (intVar1 * intVar2)​
+ ​
+3.  Find out the Type of error ​
+    Dim arrCar(2)​
+    arrCar(0) = "Maruti"​
+    arrCar(1) = "Tata"​
+    arrCar(5) = "Mahindra"​
+
+​
+
+4. Get the error description & error number in below code ( use Err object)​
+    Dim arrCar(2)​
+    arrCar(0) = "Maruti"​
+    arrCar(1) = "Tata"​
+    arrCar(5) = "Mahindra"​
