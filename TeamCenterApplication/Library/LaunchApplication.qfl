@@ -1,0 +1,142 @@
+﻿Option  Explicit
+
+' Function List
+'================================================================================================================================================================
+'0. fn_setup_TestCaseinit()                         This function is used to add external Test data 
+'1 fn_Launch_TC()					   This function is used to Launch TeamCenter Application
+'2 fn_Login_TeamCenter()		 	    This function is used to Login To TeamCenter Application
+' =========================================================End Of List ==========================================================================================
+
+
+
+'#####################################################################################################
+'###    FUNCTION NAME   :   fn_setup_TestCaseinit()
+'###
+'###    DESCRIPTION     :   This function is used to add external Test data 
+'###
+'###    PARAMETERS      :   
+'###
+'###    HISTORY         :   AUTHOR         DATE        
+'###
+'###    CREATED BY      :   Aniket Gadage         15/02/2024    
+'###
+'###    MODIFIED BY     :   
+'###
+'###    EXAMPLE         :   
+'#######################################################################################################
+
+Function fn_setup_TestCaseinit()
+
+ 	On Error Resume Next
+ 	
+	fn_CreateLogFile()
+	'DataTable.ImportSheet  "'"&Environment.Value("AutomationDir")+"TestData\"+Environment.Value("ActionName")+".xlsx"+"'", "1","TeamCenterLogin"	
+	DataTable.Import "C:\Users\agadage\Desktop\TeamCenterApplication\TestData\TeamCenterLogin.xlsx"
+	
+	On Error Goto 0
+	
+	Err.Clear
+	
+End Function
+
+
+'#####################################################################################################
+'###    FUNCTION NAME   :   fn_Launch_TC
+'###
+'###    DESCRIPTION     :   This function is used to Launch TeamCenter Application
+'###
+'###    PARAMETERS      :   
+'###
+'###    HISTORY         :   AUTHOR         DATE        
+'###
+'###    CREATED BY      :   Aniket Gadage         15/02/2024    
+'###
+'###    MODIFIED BY     :   
+'###
+'###    EXAMPLE         :   
+'#######################################################################################################
+
+Function fn_Launch_TC()
+
+ 	On Error Resume Next
+ 	
+	SystemUtil.Run "C:\apps\Siemens\TC14\4T_Client\portal\portal.bat"
+	
+	On Error Goto 0
+	
+	Err.Clear
+	
+End Function
+
+
+'#####################################################################################################
+'###    FUNCTION NAME   :   fn_Login_TeamCenter()
+'###
+'###    DESCRIPTION     :   This function is used to Launch TeamCenter Application
+'###
+'###    PARAMETERS      :   sUserId:- User Name
+'###					sPassword:- User Password
+'###
+'###    HISTORY         :   AUTHOR         DATE        
+'###
+'###    CREATED BY      :   Aniket Gadage         15/02/2024    
+'###
+'###    MODIFIED BY     :   
+'###
+'###    EXAMPLE         :   
+'#######################################################################################################
+
+Function fn_Login_TeamCenter(sUserId,sPassword)
+
+ 	On Error Resume Next
+ 	
+ 		JavaWindow("Win_Teamcenter").Sync
+ 		
+ 		JavaWindow("Win_Teamcenter").JavaButton("TC_Clearbtn").Click
+		JavaWindow("Win_Teamcenter").JavaEdit("UserId").Set sUserId
+		JavaWindow("Win_Teamcenter").JavaEdit("Password").Set sPassword
+		JavaWindow("Win_Teamcenter").JavaButton("TC_Loginbtn").Click
+
+		If JavaWindow("TeamcenterUI").JavaStaticText("Status_Ready").Exist(30) Then
+			fn_Login_TeamCenter=True
+		Else
+			fn_Login_TeamCenter=False
+		End If
+
+	On Error Goto 0
+	
+	Err.Clear
+	
+End Function
+
+'#####################################################################################################
+'###    FUNCTION NAME   :   fn_Logout_TeamCenter()
+'###
+'###    DESCRIPTION     :   This function is used to Logout TeamCenter Application
+'###
+'###    PARAMETERS      :   
+'###
+'###    HISTORY         :   AUTHOR         DATE        
+'###
+'###    CREATED BY      :   Aniket Gadage         15/02/2024    
+'###
+'###    MODIFIED BY     :   
+'###
+'###    EXAMPLE         :   
+'#######################################################################################################
+
+Function fn_Logout_TeamCenter()
+
+ 	On Error Resume Next
+		If JavaWindow("TeamcenterUI").JavaMenu("File").Exist(5) Then
+			JavaWindow("TeamcenterUI").JavaMenu("File").JavaMenu("Exit").Select
+			fn_Logout_TeamCenter=True
+		Else
+			fn_Logout_TeamCenter=False
+		End If
+
+	On Error Goto 0
+	
+	Err.Clear
+	
+End Function

@@ -1,0 +1,81 @@
+﻿Option  Explicit
+
+' Function List
+'================================================================================================================================================================
+'0. fn_CreateLogFile()                                         This function is used to Create Log File
+'1 fn_UpdateLogFile(sResult)				 This function is used to Update Log File
+' =========================================================End Of List ==========================================================================================
+
+'Variable Declaration	
+Dim File_Obj
+Dim sPath
+
+'Object Creation
+sPath=Environment.Value("AutomationDir")&"Reports\"&Environment.Value("ActionName")&"_Log.txt"
+
+Set File_Obj=CreateObject("Scripting.FileSystemObject")
+
+
+'#####################################################################################################
+'###    FUNCTION NAME   :   fn_CreateLogFile()
+'###
+'###    DESCRIPTION     :  This function is used to Create Log File
+'###
+'###    PARAMETERS      :  
+'###
+'###    HISTORY         :          AUTHOR                   DATE        
+'###
+'###    CREATED BY      :   Aniket Gadage         15/02/2024    
+'###
+'###    MODIFIED BY     :   
+'###
+'###    EXAMPLE         :   
+'#######################################################################################################
+Function fn_CreateLogFile()
+
+ 	On Error Resume Next
+	
+	If Not(File_Obj.FileExists(sPath)) Then
+		File_Obj.CreateTextFile(sPath)
+	End If
+			
+	On Error Goto 0
+	
+	Err.Clear
+	
+End Function
+
+
+'#####################################################################################################
+'###    FUNCTION NAME   :   fn_UpdateLogFile()
+'###
+'###    DESCRIPTION     :   This function is used to Update Log File
+'###
+'###    PARAMETERS      :  sResult: Result String
+'###
+'###    HISTORY         :          AUTHOR                   DATE        
+'###
+'###    CREATED BY      :   Aniket Gadage         15/02/2024    
+'###
+'###    MODIFIED BY     :   
+'###
+'###    EXAMPLE         :   
+'#######################################################################################################
+
+Function fn_UpdateLogFile(sResult)
+
+	Dim  Write_Obj
+	
+	Const iWrite=8
+	
+ 	On Error Resume Next
+ 	
+		Set Write_Obj=File_Obj.OpenTextFile(sPath,iWrite)
+		
+		Write_Obj.WriteLine(sResult)
+		
+	On Error Goto 0
+	
+	Err.Clear	
+	
+End Function

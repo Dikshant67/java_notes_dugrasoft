@@ -1,0 +1,59 @@
+﻿Option  Explicit
+
+' Function List
+'================================================================================================================================================================
+'0. fn_CreateFolder()                              This function is used to Create Folder Under TeamCenter Application
+'1 fn_CreateItems()					   This function is used to Create Item Under TeamCenter Application
+' =========================================================End Of List ==========================================================================================
+
+
+'#####################################################################################################
+'###    FUNCTION NAME   :   fn_CreateFolder(sFolder,sDesc)
+'###
+'###    DESCRIPTION     :    This function is used to Create Folder Under TeamCenter Application
+'###
+'###    PARAMETERS      :   sFolder- Folder Name
+'###					    sDesc- Folder Description
+'###
+'###    HISTORY         :   AUTHOR         DATE        
+'###
+'###    CREATED BY      :   Aniket Gadage         15/02/2024    
+'###
+'###    MODIFIED BY     :   
+'###
+'###    EXAMPLE         :   
+'#######################################################################################################
+
+Function  fn_CreateFolder(sFolder,sDesc)
+
+ 	On Error Resume Next
+ 	
+		JavaWindow("TeamcenterUI").JavaMenu("File").JavaMenu("New").JavaMenu("Folder...").Select
+		
+		JavaWindow("TeamcenterUI").JavaWindow("New Folder").JavaEdit("Business Object Type").Set "Folder"
+		
+		JavaWindow("TeamcenterUI").JavaWindow("New Folder").JavaButton("Next >").Click
+		
+		JavaWindow("TeamcenterUI").JavaWindow("New Folder").JavaEdit("FolderName").Set sFolder
+
+		JavaWindow("TeamcenterUI").JavaWindow("New Folder").JavaEdit("Description:").Set sDesc
+		
+		JavaWindow("TeamcenterUI").JavaWindow("New Folder").JavaCheckBox("Open On Create").Set "ON"
+		
+		JavaWindow("TeamcenterUI").JavaWindow("New Folder").JavaButton("Finish").Click
+		
+		JavaWindow("TeamcenterUI").JavaWindow("New Folder").JavaButton("Close").Click
+		
+		If Err.Number>0 Then
+			fn_CreateFolder=False
+		Else
+			fn_CreateFolder=True
+		End If
+	
+	On Error Goto 0
+	
+	Err.Clear
+	
+End Function
+
+
